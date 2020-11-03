@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+	<title>Ecom</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<!--<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">-->
+	<style>
+		body {
+			background-color: hsl(0, 0%, 98%);
+		}
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			color: hsl(0, 0%, 30%);
+		}
+
+		.box-element {
+			box-shadow: hsl(0, 0%, 80%) 0 0 16px;
+			background-color: #fff;
+			border-radius: 4px;
+			padding: 10px;
+		}
+
+		.thumbnail {
+			width: 100%;
+			height: 200px;
+			-webkit-box-shadow: -1px -3px 5px -2px rgba(214, 214, 214, 1);
+			-moz-box-shadow: -1px -3px 5px -2px rgba(214, 214, 214, 1);
+			box-shadow: -1px -3px 5px -2px rgba(214, 214, 214, 1);
+		}
+
+		.product {
+			border-radius: 0 0 4px 4px;
+		}
+
+		.bg-dark {
+			background-color: #4f868c !important;
+		}
+
+		#cart-icon {
+			width: 25px;
+			display: inline-block;
+			margin-left: 15px;
+		}
+
+		#cart-total {
+			display: block;
+			text-align: center;
+			color: #fff;
+			background-color: red;
+			width: 20px;
+			height: 25px;
+			border-radius: 50%;
+			font-size: 14px;
+		}
+
+		.col-lg-4,
+		.col-lg-6,
+		.col-lg-8,
+		.col-lg-12 {
+			margin-top: 10px;
+		}
+
+		.btn {
+			border-radius: 0;
+		}
+
+		.row-image {
+			width: 100px;
+		}
+
+		.form-field {
+			width: 250px;
+			display: inline-block;
+			padding: 5px;
+		}
+
+		.cart-row {
+			display: flex;
+			align-items: flex-stretch;
+			padding-bottom: 10px;
+			margin-bottom: 10px;
+			border-bottom: 1px solid #ececec;
+
+		}
+
+		.quantity {
+			display: inline-block;
+			font-weight: 700;
+			padding-right: 10px;
+
+
+		}
+
+		.chg-quantity {
+			width: 12px;
+			cursor: pointer;
+			display: block;
+			margin-top: 5px;
+			transition: .1s;
+		}
+
+		.chg-quantity:hover {
+			opacity: .6;
+		}
+
+
+		.hidden {
+			display: none !important;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="{% url 'home' %}">Ecom</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="{% url 'home' %}">Store <span class="sr-only">(current)</span></a>
+				</li>
+
+			</ul>
+			<div class="form-inline my-2 my-lg-0">
+				<a href="{% url 'login' %}" class="btn btn-warning">Logout</a>
+				<a href="{% url 'cart' %}"
+				<button  type="button" class="btn btn-warning mx-2" id="popcart" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" data-content="Vivamus
+				sagittis lacus vel augue laoreet rutrum faucibus.">
+
+				Cart(<span id="cart">0</span>)</button></a>
+				
+				<!--<a href="{% url 'cart' %}">
+					<img id="cart-icon" src="{% static 'cart.png' %}">
+				</a>
+				<p><span id = "cart popcart"></span></p>-->
+				<!--<p id="cart-total">0</p>-->
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+		<br>
+		{% block content %}
+
+	<!--	<div class="row">
+			{% for product in products %}
+			<div class="col-lg-4">
+				<img class="thumbnail" src="{{product.image.url}}">
+				<div class="box-element product">
+					<h6><strong>{{product.name}}</strong></h6>
+					<hr>
+	
+					<button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+					
+					<a class="btn btn-outline-success" href="#">View</a>
+					<h4 style="display: inline-block; float: right"><strong>${{product.price}}</strong></h4>
+	
+				</div>
+			</div>
+			{% endfor %}
+		</div> -->
+
+		<div class="row">
+			{% for product in products %}
+			<div class="col-lg-4">
+				<span id="imagepr{{product.id}}">
+				<img class="thumbnail" src="{{product.image.url}}"></span>
+				<div class="box-element product">
+					<h6 id="namepr{{product.id}}">{{product.name}}</h6>
+					<hr>
+						<!--<form action="../cart/" method="POST">
+							{% csrf_token %}
+							<input type="hidden"  name="product_id" value="{{product.id}}" />
+							
+							<button  class="btn btn-outline-secondary add-btn">Add to Cart</button>
+							
+						</form>-->
+
+					<!--<a href="{% url 'cart' %}"></a>-->
+					<span id="divpr{{product.id}}" class="divpr">
+						<button id="pr{{product.id}}" class="btn btn-outline-secondary add-btn cart">Add to Cart</button></span>
+					<a href="{{product.id}}"><button id="qv{{product.id}}" class="btn btn-outline-success cart">View</button></a>
+					<h4 id="pricepr{{product.id}}" style="display: inline-block; float: right">${{product.price}}</h4>
+						<p id="demo"></p>
+				</div>
+			</div>
+			{% endfor %}
+		</div> 
+
+
+
+		{% endblock content %}
+	</div>
+	
+
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+
+		{% block js %} 
+		<script>
+			
+			// Find out the cart items from localStorage
+			if (localStorage.getItem('cart') == null) {
+    				var cart = {};
+			} 
+			else{
+    				cart = JSON.parse(localStorage.getItem('cart'));
+    				updateCart(cart);
+				}
+			// If the add to cart button is clicked, add/increment the item
+			//$('.cart').click(function() {
+    		$('.divpr').on('click', 'button.cart', function(){
+    			var idstr = this.id.toString();
+    			if (cart[idstr] != undefined) {	
+					qty = cart[idstr][0] + 1;
+        			cart[idstr] = [qty, name, image, price];
+    			}
+				else {
+						qty = 1;
+						name = document.getElementById('name' +idstr).innerHTML;
+						image = document.getElementById('image' +idstr).innerHTML;
+						price = document.getElementById('price' +idstr).innerHTML;
+						cart[idstr] = [qty, name, image, price];
+        				//cart[idstr] = 1;
+    			}
+    			updateCart(cart);
+			});
+			//Add Popover to cart
+			$('#popcart').popover();
+			updatePopover(cart);
+			function updatePopover(cart) {
+    			//console.log('We are inside updatePopover');
+    			var popStr = "";
+    			popStr = popStr + "<h5> Cart for your items in my shopping cart </h5><div class='mx-2 my-2'>";
+    			var i = 1;
+    			for (var item in cart) {
+        		popStr = popStr + "<b>" + i + "</b>. ";
+        		popStr = popStr + document.getElementById('name' + item).innerHTML.slice(0, 19) + "... Qty: " + cart[item][0] + '<br>';
+        		i = i + 1;
+    		}
+    		popStr = popStr + "</div> <a href='#'><button class='btn btn-primary' id ='checkout'>Checkout</button></a><button class='btn btn-primary' onclick='clearCart()' id ='clearCart'>Clear Cart</button>"
+    		//	console.log(popStr);
+    		document.getElementById('popcart').setAttribute('data-content', popStr);
+    		$('#popcart').popover('show');
+			}
+			function clearCart() {
+    			cart = JSON.parse(localStorage.getItem('cart'));
+    			for (var item in cart) {
+        			document.getElementById('div' + item).innerHTML = '<button id="' + item + '" class="btn btn-primary cart">Add To Cart</button>'
+    			}
+    			localStorage.clear();
+    			cart = {};
+    			updateCart(cart);
+			}
+			function updateCart(cart) {
+    			var sum = 0;
+    			for (var item in cart) {
+        			sum = sum + cart[item][0];
+        			document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
+    			}
+    			localStorage.setItem('cart', JSON.stringify(cart));
+    			document.getElementById('cart').innerHTML = sum;
+    			console.log(cart);
+    			updatePopover(cart);
+			}
+			// If plus or minus button is clicked, change the cart as well as the display value
+			$('.divpr').on("click", "button.minus", function() {
+    			a = this.id.slice(7, );
+    			cart['pr' + a][0] = cart['pr' + a][0] - 1;
+    			cart['pr' + a][0] = Math.max(0, cart['pr' + a][0]);
+    			document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
+    			updateCart(cart);
+			});
+			$('.divpr').on("click", "button.plus", function() {
+    			a = this.id.slice(6, );
+    			cart['pr' + a][0] = cart['pr' + a][0] + 1;
+    			document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
+    			updateCart(cart);
+			});
+
+		</script>
+	{% endblock%}
+
+</body>
+
+</html>
